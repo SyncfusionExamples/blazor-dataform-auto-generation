@@ -1,0 +1,58 @@
+﻿@page "/"
+@rendermode InteractiveServer
+
+<PageTitle>Home</PageTitle>
+
+@using System.ComponentModel.DataAnnotations
+
+    <SfDataForm ID="MyForm"
+            Model="@EmployeeDetail" ColumnCount=2
+            ColumnSpacing="10px" Width="400px">
+        <FormValidator>
+            <DataAnnotationsValidator></DataAnnotationsValidator>
+        </FormValidator>
+        <FormItems>
+            <FormAutoGenerateItems></FormAutoGenerateItems>
+        </FormItems>
+    </SfDataForm>
+
+
+@code {
+
+    public class Employee
+    {
+        [Editable(false)]
+        [Display(Name = "Employee ID")]
+        [DataFormDisplayOptions(ColumnSpan = 2)]
+        public string EmployeeID { get; set; }
+
+        [Required(ErrorMessage = "Please enter your first name.")]
+        [Display(Name = "First Name", Prompt = "Enter first name")]
+        public string FirstName { get; set; }
+
+        [Required(ErrorMessage = "Please enter your last name.")]
+        [Display(Name = "Last Name", Prompt = "Enter last name")]
+        public string LastName { get; set; }
+
+        [Required(ErrorMessage = "Please enter email address.")]
+        [EmailAddress(ErrorMessage = "Please enter a valid email address.")]
+        [Display(Name = "Email ID", Prompt = "Enter email address")]
+        [DataFormDisplayOptions(ColumnSpan = 2)]
+        public string EmailID { get; set; }
+
+        [Required(ErrorMessage = "Please enter date of birth.")]
+        [Display(Name = "Date of Birth", Prompt = "Enter date of birth")]
+        [DataFormDateOptions(MaximumDate ="17/10/2024" , MinimumDate = "01/01/1970", Format = "dd/MM/yyyy")]
+        public DateOnly? DOB { get; set; }
+
+        [Required(ErrorMessage = "Please enter date of joining.")]
+        [Display(Name = "Date of Joining", Prompt = "Enter date of joining")]
+        public DateOnly? DateOfJoining { get; set; }
+    }
+    private Employee EmployeeDetail = new Employee()
+        {
+            EmployeeID = "AZ-1489",
+            FirstName = "Anne",
+            LastName = "Lawsen"
+        };
+}
